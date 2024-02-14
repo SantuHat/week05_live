@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{ text }}
+    <!-- refs => 用在 html DOM 元素 -->
+    <section ref="sec"></section>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    const app = createApp({
+      data(){
+        return {
+          text: '123', // 屬性
+        }
+      },
+      methods: {
+        getData(){ // 方法
+
+        }
+      },
+      mounted(){
+        console.log(this.$refs);
+        
+      }
+    })
+    app.mount('#app')
+  </script>
+</body>
+</html>
