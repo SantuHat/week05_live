@@ -6,12 +6,24 @@
   <title>Document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </head>
 <body>
   <div id="app">
     {{ text }}
     <!-- refs => 用在 html DOM 元素 -->
-    <section ref="sec"></section>
+    <card ref="card1"></card>
+    <card ref="card2"></card>
+    
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" @click="openModal1Show">
+      Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <modal text="一號" ref="modal1"></modal>
+    <modal text="二號"></modal>
+    
   </div>
 
   <script>
@@ -24,14 +36,78 @@
       },
       methods: {
         getData(){ // 方法
-
+        },
+        openModal1Show(){
+          // console.log(this.$refs);
+          
+          // 從外層指定要開啟哪一個內層元件
+          this.$refs.modal1.openModal()
         }
       },
       mounted(){
-        console.log(this.$refs);
-        
+        // console.log(this.$refs);
+        this.$refs.card1.updateText()
       }
     })
+
+    app.component('modal', {
+      props: ['text'],
+      data(){
+        return {
+          modal: null
+        }
+      },
+      methods: {
+        openModal(){
+          this.modal.show()
+        }
+      },
+      template: `
+      <div class="modal fade" id="exampleModal" ref="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">{{ text }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              1
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      `,
+      mounted(){
+        this.modal = new bootstrap.Modal(this.$refs.exampleModal);
+        // myModal.show();
+      }
+    })
+
+    app.component('card', {
+      data(){
+        return {
+          text: '卡片'
+        }
+      },
+      methods: {
+        updateText(){
+          this.text = '被更新了'
+        }
+      },
+      template:`
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ text }}</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>`,
+    })
+    
     app.mount('#app')
   </script>
 </body>
