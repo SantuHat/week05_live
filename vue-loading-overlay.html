@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+  <script src="
+https://cdn.jsdelivr.net/npm/vue-loading-overlay@6.0.3/dist/index.min.js
+"></script>
+  <link href="
+  https://cdn.jsdelivr.net/npm/vue-loading-overlay@6.0.3/dist/css/index.min.css
+  " rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <!-- 第一種註冊方式 -->
+    <loading v-model:active="isLoading"/>
+    
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    const app = createApp({
+      data(){
+        return {
+          isLoading: true, // 狀態
+        }
+      },
+      mounted(){
+        // 第一種註冊方式
+        setTimeout(()=>{
+          this.isLoading = false // 狀態驅動元件
+        }, 1000)
+        
+        // 第二種註冊方式
+        // const loader = this.$loading.show(); // 方法去驅動
+        // setTimeout(()=>{
+        //   loader.hide();
+        // }, 1000)
+      }
+    })
+
+    // 第一種註冊方式:透過元件(component)的方式註冊 loading
+    app.component('loading', VueLoading.Component)
+    console.log(VueLoading);
+
+    // 第二種註冊方式: 插件(plugin)的方式
+    // app.use(VueLoading.LoadingPlugin);
+    
+    app.mount('#app')
+  </script>
+</body>
+</html>
