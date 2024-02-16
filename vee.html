@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.12.4/vee-validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.12.4/dist/vee-validate-rules.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.12.4/dist/vee-validate-i18n.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    
+    <v-form></v-form>
+    <v-fieid></v-fieid>
+    <erro-message></erro-message>
+    
+  </div>
+
+  <script>
+    Object.keys(VeeValidateRules).forEach(rule => {
+      if (rule !== 'default') {
+        VeeValidate.defineRule(rule, VeeValidateRules[rule]);
+      }
+    });
+    
+    const { createApp } = Vue;
+    const app = createApp({
+      data(){
+        return {
+          isLoading: true, // 狀態
+        }
+      },
+      mounted(){
+        
+      },
+    })
+
+    app.component('VForm', VeeValidate.Form);
+    app.component('VField', VeeValidate.Field); // input, selector
+    app.component('ErrorMessage', VeeValidate.ErrorMessage);
+    
+    app.mount('#app')
+  </script>
+</body>
+</html>
