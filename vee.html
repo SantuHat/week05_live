@@ -16,9 +16,39 @@
 <body>
   <div id="app">
     
-    <v-form></v-form>
-    <v-fieid></v-fieid>
-    <erro-message></erro-message>
+    <v-form v-slot="{ errors }" @submit="onSubmit">
+      {{ errors }}
+
+      <!-- input -->
+      <v-field
+        id="email"
+        name="email"
+        type="email"
+        class="form-control"
+        :class="{ 'is-invalid': errors['email'] }"
+        placeholder="請輸入 Email" rules="email|required"
+        v-model="user.email"
+      ></v-field>
+      <error-message name="email" class="invalid-feedback"></error-message>
+
+      <!-- select -->
+      <v-field
+        id="area"
+        name="area"
+        class="form-control"
+        :class="{ 'is-invalid': errors['area'] }"
+        placeholder="請輸入地區"
+        rules="required"
+        v-model="user.region"
+        as="select"
+      >
+        <option value="">請選擇地區</option>
+        <option value="台北市">台北市</option>
+        <option value="高雄市">高雄市</option>
+      </v-field>
+      <error-message name="area" class="invalid-feedback"></error-message>
+      <button type="submit">送出</button>
+    </v-form>
     
   </div>
 
@@ -28,17 +58,30 @@
         VeeValidate.defineRule(rule, VeeValidateRules[rule]);
       }
     });
+
+    // 讀取外部的資源
+    VeeValidateI18n.loadLocaleFromURL('./zh-TW.json');
+
+    // Activate the locale
+    VeeValidate.configure({
+      generateMessage: VeeValidateI18n.localize('zh_TW'),
+      validateOnInput: true, // 調整為：輸入文字時，就立即進行驗證
+    });
     
     const { createApp } = Vue;
     const app = createApp({
       data(){
         return {
-          isLoading: true, // 狀態
+          user: {
+            email:''
+          }
         }
       },
-      mounted(){
-        
-      },
+      methods: {
+        onSubmit(){
+          console.log(this);
+        }
+      }
     })
 
     app.component('VForm', VeeValidate.Form);
