@@ -8,3 +8,6 @@
 
 # VeeValidation
 - https://hackmd.io/FFv0a5cBToOATP7uI5COMQ
+
+# Pinia CDN 版起手教學文件
+- https://hackmd.io/gPZNP9r7QXqDOvS6UEgZxw
