@@ -22,6 +22,8 @@
   </div>
 
   <script>
+    // 最前方將 defineStore、createPinia 方法取出
+    const { defineStore, createPinia, mapState, mapActions } = Pinia;
     const { createApp } = Vue;
 
     const card1 = {
@@ -51,6 +53,10 @@
         card2
       }
     });
+
+    // 將 Pinia 套用至 Vue 環境中，請確保加入在 `const app = createApp...` 之後，並在 `app.mount` 之前。
+    const pinia = createPinia();
+    app.use(pinia);
 
     app.mount('#app');
   </script>
