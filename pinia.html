@@ -21,10 +21,11 @@
     <card2></card2>
   </div>
 
-  <script>
+  <script type="module">
     // 最前方將 defineStore、createPinia 方法取出
     const { defineStore, createPinia, mapState, mapActions } = Pinia;
     const { createApp } = Vue;
+    import cardStore  from './cardStore.js' 
 
     const card1 = {
       data() {
